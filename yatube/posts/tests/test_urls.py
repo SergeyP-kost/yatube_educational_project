@@ -1,11 +1,17 @@
+import shutil
+import tempfile
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from http import HTTPStatus
 from posts.models import Post, Group, Comment
+
+TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
 User = get_user_model()
 
 
+@override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class PostURLTests(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -25,6 +31,11 @@ class PostURLTests(TestCase):
             text='Тестовый комментарий',
             author=cls.user
         )
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
         # Создаем неавторизованный клиент

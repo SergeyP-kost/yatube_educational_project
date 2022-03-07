@@ -1,14 +1,20 @@
+import shutil
+import tempfile
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from django.core.cache import cache
 from django import forms
 from posts.models import Post, Group, Comment, Follow
 
+TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
+
 User = get_user_model()
 
 
+@override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class PostPagesTests(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -43,6 +49,11 @@ class PostPagesTests(TestCase):
             text='Тестовый комментарий',
             author=cls.user
         )
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
         self.guest_client = Client()
