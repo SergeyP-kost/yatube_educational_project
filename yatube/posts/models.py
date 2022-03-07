@@ -43,9 +43,9 @@ class Post(CreatedModel):
         related_name='posts'
     )
     image = models.ImageField(
-        'Картинка',
+        verbose_name='Изображение',
         upload_to='posts/',
-        help_text='Загрузите картинку',
+        help_text='Загрузите изображение',
         blank=True
     )
 

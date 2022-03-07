@@ -6,7 +6,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('text', 'group', 'image')
-        required = {'text': False}
+        required = {'text': False, 'image': False}
 
 
 class CommentForm(forms.ModelForm):
