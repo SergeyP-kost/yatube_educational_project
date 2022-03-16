@@ -44,8 +44,7 @@
         </li>
         <li>
           Пользователь:<br>
-          <a href="{% url 'posts:profile' user %}">{{ user.first_name }}
-              {{ user.last_name }}</a>
+          <a href="{% url 'posts:profile' user %}">{{ user }}</a>
         </li>
         {% else %}
         <li class="nav-item">

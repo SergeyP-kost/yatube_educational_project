@@ -18,7 +18,7 @@
     <p>{{ post.text }}</p>
     {% if post.group %}
       <a href="{% url 'posts:group_list' post.group.slug %}">все записи
-        группы</a>
+        группы {{ post.group }}</a>
     {% endif %}
     <br>
     <a href="{% url 'posts:post_detail' post.pk %}">подробная

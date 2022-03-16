@@ -10,7 +10,6 @@
 {% block header %}
   <h1>{{ group.title }}</h1>
 {% endblock header %}
-
   <p>{{ group.description }}</p>
   {% for post in page_obj %}
     {% if group == post.group %}

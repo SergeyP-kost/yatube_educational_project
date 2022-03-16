@@ -6,8 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container py-5">
-  <div class="mb-5">
+<div class="mb-5">
   <h1>Все посты пользователя {{ author.get_full_name }}</h1>
   <h3>Всего постов: {{ post_list.count }}</h3>
   {% if user.is_authenticated %}
@@ -51,5 +50,4 @@
   {% endif %}
   {% endfor %}
   {% include 'posts/includes/paginator.html' %}
-</div>
 {% endblock %}
