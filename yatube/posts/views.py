@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import redirect, render, get_object_or_404, get_list_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Post, Group, User, Follow
 from .forms import PostForm, CommentForm
 
@@ -97,6 +97,13 @@ def post_edit(request, post_id):
         }
         return render(request, 'posts/create_post.html', context)
     return redirect('posts:post_detail', post_id)
+
+
+@login_required
+def delete(request, post_id):
+    post = get_object_or_404(Post.objects.select_related('author'), pk=post_id)
+    post.delete()
+    return redirect('posts:profile', username=request.user)
 
 
 @login_required
